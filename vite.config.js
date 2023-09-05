@@ -8,6 +8,7 @@ export default {
     plugins: [react(), topLevelAwait()],
     root: "src",
     publicDir: "public",
+    // base: "/datathink_demo/",
     base: "/",
     server: {
         host: true,

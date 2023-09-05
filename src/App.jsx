@@ -1,51 +1,79 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import MapIcon from "@mui/icons-material/Place";
 import HomeIcon from "@mui/icons-material/Home";
 
 import Basemap from "./Basemap.jsx";
 import About from "./About.jsx";
-import SwitchBtn from "./SwitchBtn.jsx";
+import GridImg from "./GridImg.jsx";
+import ImageIcon from "@mui/icons-material/Image";
 
 export default function App() {
-    const [popup, setPopup] = useState(true);
+    const [selectedValue, setSelectedValue] = useState("home");
+
+    const btns = ["home", "map", "images"];
 
     return (
         <>
-            {popup && <About />}
-            <Basemap />
-            {/* <SwitchBtn /> */}
-            <IconButton
-                className="info_btn"
-                style={{
-                    backgroundColor: "#d62d3e",
-                    color: "white",
-                    padding: 12,
-                }}
-                onClick={() => {
-                    setPopup(!popup);
-                    console.log(popup);
+            <Box
+                className="info_btns"
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
                 }}
             >
-                {popup && (
-                    <MapIcon
-                        sx={{
-                            padding: "2px",
-                            margin: 0,
-                            fontSize: "2rem",
+                {btns.map((btn) => (
+                    <IconButton
+                        style={{
+                            padding: 12,
+                            marginBottom: "10px",
                         }}
-                    />
-                )}
-                {!popup && (
-                    <HomeIcon
-                        sx={{
-                            padding: "2px",
-                            margin: 0,
-                            fontSize: "2rem",
+                        className={
+                            btn === selectedValue
+                                ? "info_btn btnSelected"
+                                : "info_btn btnNonSelected"
+                        }
+                        onClick={() => {
+                            setSelectedValue(btn);
+                            console.log(btn);
                         }}
-                    />
-                )}
-            </IconButton>
+                    >
+                        {(btn === "home" && (
+                            <HomeIcon
+                                sx={{
+                                    padding: "2px",
+                                    margin: 0,
+                                    fontSize: "2rem",
+                                }}
+                            />
+                        )) ||
+                            (btn === "map" && (
+                                <MapIcon
+                                    sx={{
+                                        padding: "2px",
+                                        margin: 0,
+                                        fontSize: "2rem",
+                                    }}
+                                />
+                            )) ||
+                            (btn === "images" && (
+                                <ImageIcon
+                                    sx={{
+                                        padding: "2px",
+                                        margin: 0,
+                                        fontSize: "2rem",
+                                    }}
+                                />
+                            ))}
+                    </IconButton>
+                ))}
+            </Box>
+
+            {selectedValue == "home" && <About />}
+
+            {selectedValue == "images" && <GridImg />}
+
+            <Basemap />
         </>
     );
 }

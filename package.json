@@ -5,12 +5,15 @@
     "type": "module",
     "homepage": "./",
     "scripts": {
-        "dev": "vite"
+        "dev": "vite",
+        "build": "vite build",
+        "deploy": "gh-pages -d dist"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "3.0",
         "typescript": "^5.1.6",
-        "vite": "^4.0.4"
+        "vite": "^4.0.4",
+        "gh-pages": "^5.0.0"
     },
     "author": "Iacopo Neri",
     "license": "ISC",

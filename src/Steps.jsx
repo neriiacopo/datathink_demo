@@ -8,15 +8,18 @@ import {
     AccordionSummary,
     Typography,
     Chip,
+    Button,
 } from "@mui/material";
 // import AccordionDetails from '@mui/material/AccordionDetails';
 // import AccordionSummary from '@mui/material/AccordionSummary';
 // import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+import LinkOutlinedIcon from "@mui/icons-material/LinkOutlined";
+
 export default function Steps() {
     const sBullet = {
-        minHeight: 300,
+        minHeight: 200,
         backgroundColor: "",
         margin: "50px auto",
         width: "50%",
@@ -29,7 +32,7 @@ export default function Steps() {
                 "https://colab.research.google.com/drive/1um_bjfm0xb_X4ZEuoRKpdmD3UhEmNREQ?usp=share_link",
                 "https://drive.google.com/drive/u/0/folders/1otoOMpGWax6QLkWjsOA8iL10vfzBIfk9",
             ],
-            purpose: `We introduced the first day of Giuseppe Vasi’s “Itinerario istruttivo” (1761) became the main subject of study, an additional link to the historical city was introduced through Giovanni Battista Nolli’s Pianta Grande di Roma from 1748, which further contextualized the visual and textual entries from Vasi’s sources. Together, these two references acted as coordinates that permit the link between two cities - the historical Rome and its present-day version - which, overlaid in space, were misaligned in time.
+            purpose: `We introduced the first day of Giuseppe Vasi’s “Itinerario istruttivo” (1761) as the main reference. We introduced an additional link to the historical city through Giovanni Battista Nolli’s Pianta Grande di Roma from 1748, which further contextualized the visual and textual entries from Vasi’s sources. Together, these two references acted as coordinates that permit the link between two cities - the historical Rome and its present-day version - which, overlaid in space, were misaligned in time.
             `,
             method: `The Nolli map was automatically vectorized by means of semantic segmentation. A Convolutional Neural Network was trained on historical map patches to detect which pixels represented buildings. Following the inference of the trained model on the Nolli map, the building-labeled pixel regions were converted to vector polygons. These vector polygons formed the first entries of a database to report and annotate information in a georeferenced fashion`,
         },
@@ -51,7 +54,6 @@ export default function Steps() {
             title: `Phase 4 Postprocessing`,
             link: [
                 "https://colab.research.google.com/github/TheLastBen/fast-stable-diffusion/blob/main/fast_stable_diffusion_AUTOMATIC1111.ipynb#scrollTo=PjzwxTkPSPHf",
-                "https://drive.google.com/file/d/1EBmYEsikYkAeIsTdIX29iKzP7z6zC2oy/view?usp=sharing",
             ],
             purpose: `Machine learning models like Stable Diffusion make it easy and effortless to generate high-quality images that tightly represent textual prompts, allowing almost any user to engage in the process of creating visual content.
             We used the Automatic1111 WebUI framework – further adapted to run remotely in Google Colab –to control Stable Diffusion with text prompts to reproduce stylistically Vasi’s views, which were retrieved via CLiPInterrogator.
@@ -59,6 +61,11 @@ export default function Steps() {
             method: `The independently captured multifold urban aspects were later collected in an interactive web map via Kepler.gl. This hypermap serves as a platform to communicate the results of the urban investigation as it did it in a collaborative way, de facto crowdsourcing the final output from the contribution of each participant.`,
         },
     ];
+
+    const handleButtonClick = () => {
+        window.open("https://www.example.com", "_blank");
+    };
+    console.log(`${sections[1].link[0]}`);
 
     return (
         <>
@@ -76,6 +83,25 @@ export default function Steps() {
     );
 }
 
+const ChipLInk = ({ url, index }) => {
+    const openPage = () => {
+        if (url) {
+            window.open(url, "_blank");
+        }
+    };
+
+    return (
+        <Chip
+            label={`${index}`}
+            variant="outlined"
+            onClick={openPage}
+            sx={{ pointerEvents: "auto" }}
+        >
+            Open Page
+        </Chip>
+    );
+};
+
 function AccordionCustom({ title, link, purpose, method }) {
     const [expanded, setExpanded] = useState(false);
 
@@ -92,6 +118,7 @@ function AccordionCustom({ title, link, purpose, method }) {
                 sx={{
                     backgroundColor: "transparent",
                     borderBottom: "1px solid black",
+                    pointerEvents: "none",
                 }}
                 expanded={expanded === "panel1"}
                 onChange={handleChange("panel1")}
@@ -102,7 +129,12 @@ function AccordionCustom({ title, link, purpose, method }) {
                     id="panel1bh-header"
                 >
                     <Typography
-                        sx={{ width: "90%", flexShrink: 0, fontWeight: "bold" }}
+                        sx={{
+                            width: "90%",
+                            flexShrink: 0,
+                            fontWeight: "bold",
+                            pointerEvents: "auto",
+                        }}
                     >
                         {title}
                     </Typography>
@@ -114,24 +146,28 @@ function AccordionCustom({ title, link, purpose, method }) {
                         }}
                     >
                         {link.map((link, index) => (
-                            <Chip
-                                label={`${index}`}
-                                variant="outlined"
-                                sx={{
-                                    backgroundColor: "black",
-                                    color: "white",
-                                }}
-                                href={`#${link}`}
+                            <ChipLInk
+                                url={`${link}`}
+                                index={index + 1}
                             />
                         ))}
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Typography>Purpose:</Typography>
+                    <Typography
+                        sx={{ fontStyle: "italic", fontWeight: "light" }}
+                    >
+                        Purpose:
+                    </Typography>
                     <Typography>{purpose}</Typography>
                     <br />
 
-                    <Typography>Methodology:</Typography>
+                    <Typography
+                        sx={{ fontStyle: "italic", fontWeight: "light" }}
+                    >
+                        {" "}
+                        Methodology:
+                    </Typography>
                     <Typography>{method}</Typography>
                 </AccordionDetails>
             </Accordion>
