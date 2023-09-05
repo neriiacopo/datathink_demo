@@ -46,7 +46,12 @@ export default function About() {
                     ...sContainer,
                 }}
             >
-                <Box style={{ ...sTitle }}> DATATHINK</Box>
+                <Box style={{ ...sTitle }}>
+                    DATATHINK
+                    <p style={{ fontSize: "1.5rem", padding: 0, margin: 0 }}>
+                        Transhistorical Urban Landscape as Hypermap / 2023
+                    </p>
+                </Box>
 
                 <Box style={{ ...sIntro }}>
                     <p>

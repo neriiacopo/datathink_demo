@@ -45,9 +45,10 @@ export default function Colophon() {
                         padding: "0 200px",
                     }}
                 >
-                    DataThink is a project by D. Negueruela del Castillo, I.
-                    Neri, P. Guhennec, J. Argota Sánchez-Vaquerizo, L. Schaerf,
-                    V. Bernasconi, P. Ballesteros Zapata, S. Koseki
+                    DataThink: Transhistorical Urban Landscape as Hypermap is a
+                    project by D. Negueruela del Castillo, I. Neri, P. Guhennec,
+                    J. Argota Sánchez-Vaquerizo, L. Schaerf, V. Bernasconi, P.
+                    Ballesteros Zapata, S. Koseki
                     <br /> <br />
                     for more info, please refer to <br />
                     <br />
